@@ -6,21 +6,22 @@ const moment = require('moment');
 const DataController = {
     add: async (req, res) => {
 
-        const { temperature, humidity, dust } = req.body;
+        const { temperature, humidity, dust, air } = req.body;
 
         if (!temperature) return res.status(400).json(validateData('Vui lòng nhập temperature'));
         if (!humidity) return res.status(400).json(validateData('Vui lòng nhập humidity'));
         if (isNaN(temperature)) return res.status(400).json(validateData('temperature phải là số'));
         if (isNaN(humidity)) return res.status(400).json(validateData('humidity phải là số'));
 
-        const date = moment().format('DD/MM/YYYY');
-        const time = moment().format('HH:mm:ss');
+        const date = moment().format('DD/MM/YYYY').add(7, 'hours');
+        const time = moment().format('HH:mm:ss').add(7, 'hours');
 
         try {
             const result = new Data({
                 temperature: temperature,
                 humidity: humidity,
                 dust: dust ? dust : "",
+                air: air ? air : "",
                 date: date,
                 time: time
             });
@@ -69,7 +70,7 @@ const DataController = {
 
     update: async (req, res) => {
 
-        const { temperature, humidity, dust, id } = req.body;
+        const { temperature, humidity, dust, air, id } = req.body;
 
         if (!id) return res.status(400).json(validateData('Vui lòng nhập id'));
         if (!temperature) return res.status(400).json(validateData('Vui lòng nhập temperature'));
@@ -78,8 +79,8 @@ const DataController = {
         if (isNaN(temperature)) return res.status(400).json(validateData('temperature phải là số'));
         if (isNaN(humidity)) return res.status(400).json(validateData('humidity phải là số'));
 
-        const date = moment().format('DD/MM/YYYY');
-        const time = moment().format('HH:mm:ss');
+        const date = moment().format('DD/MM/YYYY').add(7, 'hours');;
+        const time = moment().format('HH:mm:ss').add(7, 'hours');
 
         try {
             const oldData = await Data.findOne({ _id: id });
@@ -91,6 +92,7 @@ const DataController = {
             oldData.temperature = temperature;
             oldData.humidity = humidity;
             oldData.dust = dust ? dust : oldData.dust;
+            oldData.air = air ? air : oldData.air;
             oldData.date = date;
             oldData.time = time;
 

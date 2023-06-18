@@ -13,6 +13,9 @@ const dataSchema = new mongoose.Schema({
     dust: {
         type: Number,
     },
+    air: {
+        type: Number,
+    },
     active: {
         type: Boolean,
         default: true
