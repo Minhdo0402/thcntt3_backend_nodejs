@@ -13,8 +13,8 @@ const DataController = {
         if (isNaN(temperature)) return res.status(400).json(validateData('temperature phải là số'));
         if (isNaN(humidity)) return res.status(400).json(validateData('humidity phải là số'));
 
-        const date = moment().format('DD/MM/YYYY').add(7, 'hours');
-        const time = moment().format('HH:mm:ss').add(7, 'hours');
+        const date = moment().add(7, 'hours').format('DD/MM/YYYY');
+        const time = moment().add(7, 'hours').format('HH:mm:ss');
 
         try {
             const result = new Data({
@@ -79,8 +79,8 @@ const DataController = {
         if (isNaN(temperature)) return res.status(400).json(validateData('temperature phải là số'));
         if (isNaN(humidity)) return res.status(400).json(validateData('humidity phải là số'));
 
-        const date = moment().format('DD/MM/YYYY').add(7, 'hours');;
-        const time = moment().format('HH:mm:ss').add(7, 'hours');
+        const date = moment().add(7, 'hours').format('DD/MM/YYYY');
+        const time = moment().add(7, 'hours').format('HH:mm:ss');
 
         try {
             const oldData = await Data.findOne({ _id: id });
